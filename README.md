@@ -2,8 +2,10 @@
 Depos du PHP a rendre en cours
 
 ## Contributeurs :
- - Peter DIVRY
- - Alexis BEYRAND
+ - Peter DIVRY 
+     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Peter)
+ - Alexis BEYRAND 
+     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Alexis)
  
 ## TODO :
 - [x] Ville
