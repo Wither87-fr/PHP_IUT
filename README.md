@@ -3,9 +3,9 @@ Depos du PHP a rendre en cours
 
 ## Contributeurs :
  - Peter DIVRY 
-     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Peter)
+     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/TODO) (Non-ajoutée)
  - Alexis BEYRAND 
-     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Alexis)
+     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Wither)
  
 ## TODO :
 - [x] Ville
