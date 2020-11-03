@@ -32,6 +32,16 @@
 			</div>
 			</div>
 			<div id="connect">
-				<a href="index.php?page=11">Connexion</a>
+
+        <?php if(isset($_SESSION['connecte'])) {
+          ?>
+          Utilisateur: <b><?php echo $_SESSION['username']; ?></b>
+          <a href="index.php?page=12">Deconnexion</a>
+          <?php
+        } else {
+          ?>
+          <a href="index.php?page=11">Connexion</a>
+          <?php
+        } ?>
 			</div>
 	</div>
