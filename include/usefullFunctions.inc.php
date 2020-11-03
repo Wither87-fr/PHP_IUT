@@ -7,4 +7,15 @@
     }
 
   }
+
+  function personneExiste($listePersonne, $personneAtester) {
+    $trouve = false;
+    foreach ($listepers as $unepers) {
+      if($unepers->getNom() === $_POST['username']) {
+      $trouve = true;
+    }
+    }
+
+    return $trouve;
+  }
 ?>

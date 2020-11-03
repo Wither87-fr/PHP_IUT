@@ -7,12 +7,8 @@ $valid = false;
   include_once 'include/usefullFunctions.inc.php'; */
   if(isset($_POST['username'])) {
     /*
-    $trouve = false;
-      foreach ($listepers as $unepers) {
-        if($unepers->getNom() === $_POST['username']) {
-        $trouve = true;
-      }
-      }
+    $trouve = personneExiste($listePersonne, $personneAtester);
+
     */
     if($_POST['username'] === "bob") { //if($trouve) {
       $nom = $_POST['username'];
