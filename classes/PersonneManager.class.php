@@ -1,5 +1,12 @@
 <?php
-class PersonneManager{
-	//A COMPLETER
-	
-}
+	class PersonneManager
+	{
+
+		private $db;
+		public function __construct($db) {
+			$this->db = $db;
+		}
+
+		
+
+	}
