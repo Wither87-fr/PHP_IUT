@@ -31,8 +31,8 @@ Depos du PHP a rendre en cours
     - [ ] Liste des personnes
     - [ ] Detail sur personne
 - [ ] Connexion
-    - [ ] Page Connexion
-    - [ ] Modification Accueil si connecté
+    - [x] Page Connexion (pas complet, mais fonctionnel)
+    - [x] Modification Accueil si connecté
     - [ ] Proposer un trajet
     - [ ] Rechercher un trajet
 - [ ] Bonus :
