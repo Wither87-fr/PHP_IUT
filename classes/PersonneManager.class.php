@@ -8,7 +8,7 @@
 		}
 
 		public function addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $per_pwd) {
-			$sql = "INSERT INTO etudiant(per_nom, per_prenom, per_tel, pre_mail, per_login, per_pwd) VALUES (:per_nom, :per_prenom, :per_tel, :pre_mail, :per_login, :per_pwd) "; //préparation de la requête
+			$sql = "INSERT INTO personne(per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES (:per_nom, :per_prenom, :per_tel, :per_mail, :per_login, :per_pwd) "; //préparation de la requête
 			$req = $this->db->prepare($sql);
 
 			//Valorisation de la requête
@@ -22,14 +22,10 @@
 			$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 
 			if($effectue) {
-				?>
-				<img src="image/valid.png" alt="OK"> L'étudiant a été ajoutée <!--Tout s'est bien passé-->
-			 	<?php
+				return $this->db->lastInsertId();
 		 	} else {
-			 	?>
-				<img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de l'étudiant. <br /> <!--Il y a eu une erreur -->
-				<?php
-		}
+			 	return -1; //-1 = valeur d'erreur
+			}
 		$req->closeCursor();
 		}
 
