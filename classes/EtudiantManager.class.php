@@ -30,7 +30,7 @@
 		}
 
 		public function detailEtudiant($id) {
-			$sql = "SELECT vil_nom from ville where vil_num=$id";
+		//	$sql =
 			$req = $this->db->query($sql); // A FINIR
 		}
 	}
