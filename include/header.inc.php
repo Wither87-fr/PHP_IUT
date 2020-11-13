@@ -3,6 +3,7 @@
   $accueil = $_SERVER["PHP_SELF"];
   require_once 'autoload.inc.php';
   require_once 'db.inc.php';
+  require_once 'functions.inc.php';
 ?>
 <!doctype html>
 <html lang="fr">
