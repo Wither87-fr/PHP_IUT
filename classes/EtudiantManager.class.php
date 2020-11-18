@@ -7,11 +7,12 @@
 			$this->db = $db;
 		}
 
-		public function addEtudiant($dep_num, $div_num) {
-			$sql = "INSERT INTO etudiant(dep_num, div_num) VALUES (:dep_num, :div_num) "; //préparation de la requête
+		public function addEtudiant($per_num,$dep_num, $div_num) {
+			$sql = "INSERT INTO etudiant(per_num, dep_num, div_num) VALUES (:per_num, :dep_num, :div_num) "; //préparation de la requête
 			$req = $this->db->prepare($sql);
 
 			//Valorisation de la requête
+			$req->bindValue(':per_num', $per_num);
 			$req->bindValue(':dep_num', $dep_num);
 			$req->bindValue(':div_num', $div_num);
 
@@ -23,7 +24,7 @@
 			 	<?php
 		 	} else {
 			 	?>
-				<img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de l'étudiant. <br /> <!--Il y a eu une erreur -->
+				<img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de l'étudiant <br /> <!--Il y a eu une erreur -->
 				<?php
 		}
 		$req->closeCursor();
