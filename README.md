@@ -16,32 +16,34 @@ Depos du PHP a rendre en cours
     - [x] Classe ParcoursManager
     - [x] Ajouter un parcours
     - [x] Liste des parcours
-- [ ] Personnes
+- [ ] Personnes - Partiel
     - [x] Classe Etudiant
     - [x] Classe Salarie
     - [x] Classe Personne
-    - [ ] Classe EtudiantManager
-    - [ ] Classe SalarieManager
-    - [x] Classe PersonneManager
+    - [ ] Classe EtudiantManager - Partiel
+    - [ ] Classe SalarieManager - Partiel
+    - [ ] Classe PersonneManager - Partiel
     - [x] Classe Departement
     - [x] Classe Division
     - [x] Classe Fonction
     - [x] Classe DepartementManager
     - [x] Classe DivisionManager
     - [x] Classe FonctionManager
-    - [ ] Ajouter une personne
-    - [ ] Ajouter un étudiant
-    - [ ] Ajouter un salarié
+    - [x] Ajouter une personne
+    - [x] Ajouter un étudiant
+    - [x] Ajouter un salarié
     - [ ] Liste des personnes
     - [ ] Detail sur personne
-- [ ] Connexion
-    - [ ] Page Connexion
+    - [ ] Modifier une personne
+    - [ ] Supprimer une personne
+- [ ] Connexion - Partiel
+    - [ ] Page Connexion - Partiel
     - [x] Modification Accueil si connecté
-    - [ ] Proposer un trajet
+    - [ ] Proposer un trajet - Partiel
     - [ ] Rechercher un trajet
-- [ ] Bonus :
-    - [ ] Permettre la saisie des dates par l'intermédiaire d'un calendrier (type DatePicker en javaFX)
-    - [ ] Verifier le bon formatage de l'adresse mail et du numéro de téléphone
+- [x] Bonus :
+    - [x] Permettre la saisie des dates par l'intermédiaire d'un calendrier (type DatePicker en javaFX)
+    - [x] Verifier le bon formatage de l'adresse mail et du numéro de téléphone
     
 
 ## __Consignes Absolues :__
