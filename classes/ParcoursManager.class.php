@@ -68,6 +68,51 @@
 			return $listeParcours;
 		}
 
+		public function getParNumByVille1AndVille2($ville1, $ville2) {
+			$sql = "SELECT par_num FROM parcours WHERE (vil_num1 = :ville1 AND vil_num2 = :ville2) OR (vil_num1 = :ville2 AND vil_num2 = :ville1)";
+			$req = $this->db->prepare($sql);
+			$req->bindValue('ville1', $ville1);
+			$req->bindValue('ville2', $ville2);
+			$req = $this->db->query($sql);
+			$res = $req->fetch(PDO::FETCH_ASSOC); //On n'a pas d'objets correspondant, et n'ayant qu'une ligne pour une colonne, une assoc suffit.
+			$par_num = $res['par_num'];
+			$req->closeCursor();
+			return $par_num;
+
+		}
+
+		public function getVillesProposees() {
+			$listeVilleDep = array();
+
+			$sql = "SELECT DISTINCT v.vil_num AS 'vil_num', vil_nom FROM ville v JOIN parcours p ON p.vil_num1 = v.vil_num OR p.vil_num2 = v.vil_num GROUP BY vil_nom, vil_num";
+			$req = $this->db->query($sql);
+
+			while($ville = $req->fetch(PDO::FETCH_OBJ)) {
+				$v = new Ville($ville);
+				$listeVilleDep[] = $v;
+			}
+
+			$req->closeCursor();
+			return $listeVilleDep;
+		}
+
+
+		public function getVillesArrivee($villeDepart) {
+
+					$listeVilleArrivee = array();
+
+					$sql = "SELECT DISTINCT v.vil_num AS 'vil_num', vil_nom FROM ville v, parcours p WHERE (p.vil_num1 = $villeDepart AND p.vil_num2 = v.vil_num) OR (p.vil_num2 = $villeDepart AND p.vil_num1 = v.vil_num) GROUP BY vil_nom, vil_num";
+					$req = $this->db->query($sql);
+
+					while($ville = $req->fetch(PDO::FETCH_OBJ)) {
+						$v = new Ville($ville);
+						$listeVilleDep[] = $v;
+					}
+
+					$req->closeCursor();
+					return $listeVilleDep;
+		}
+
 	}
 
 ?>
