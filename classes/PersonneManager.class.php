@@ -29,6 +29,19 @@
 		$req->closeCursor();
 		}
 
+		public function getAllPersonns() {
+			$listePers = array();
+			$sql = "SELECT per_num, per_nom, per_prenom, per_tel, per_mail, per_login FROM personne";
+			$req = $this->db->query($sql);
+			while($personne = $req->fetch(PDO::FETCH_OBJ)) {
+				$p = new Personne($personne);
+				$listePers[] = $p;
+		}
+
+		$req->closeCursor();
+		return $listePers;
+		}
+
 
 
 	}

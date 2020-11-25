@@ -55,7 +55,7 @@
       </select> <br />
       <label for="date">Date de départ:</label> <input type="date" name="date" id=date value="<?php echo date("Y-m-d"); ?>">
       <label for="heure">Heure de départ : </label> <input type="text" name="heure" id=heure value="<?php echo date("H:i:s") ?>"> <br />
-      <label for="places">Nombre de places :</label> <input type="text" name="places" id="places" placeholder="3"> <br />
+      <label for="places">Nombre de places :</label> <input type="number" name="places" id="places" placeholder="3"> <br />
       <input type="submit" value="Valider">
       </form>
     <?php
@@ -63,7 +63,11 @@
     ?>
     c'est OK! je peut pas aller plus loin sans le reste
     <?php
-    unset($_SESSION['villeDepart']);
+    $nom = $_SESSION['username'];
+    session_destroy();
+    session_start();
+    $_SESSION['connecte'] = "true";
+    $_SESSION['username'] = $nom;
   }
 }
 ?>

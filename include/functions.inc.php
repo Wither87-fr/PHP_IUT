@@ -22,8 +22,8 @@
 
   function personneExiste($listePersonne, $personneAtester) {
     $trouve = false;
-    foreach ($listepers as $unepers) {
-      if($unepers->getNom() === $_POST['username']) {
+    foreach ($listePersonne as $unepers) {
+      if($unepers->getLogin() === $personneAtester) {
       $trouve = true;
     }
     }
