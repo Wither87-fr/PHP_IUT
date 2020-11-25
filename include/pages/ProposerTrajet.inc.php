@@ -3,7 +3,9 @@
     $villeDep = $_POST['villeDep'];
     $_SESSION["villeDepart"] = $villeDep;
   }
-  if(isset($_POST['villeArrivee']))
+  if(isset($_POST['villeArrivee'])) {
+    $villeArrivee = $_POST['villeArrivee'];
+  }
 
 
   if(isset($_SESSION["villeDepart"])) {
@@ -58,11 +60,10 @@
       </form>
     <?php
   } else {
-      ?>
-      c'est OK! je peut pas aller plus loin sans le reste
-      <?php
-      session_unregister("villeDepart");
-
+    ?>
+    c'est OK! je peut pas aller plus loin sans le reste
+    <?php
+    unset($_SESSION['villeDepart']);
   }
 }
 ?>
