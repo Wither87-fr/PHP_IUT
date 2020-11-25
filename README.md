@@ -2,10 +2,8 @@
 Depos du PHP a rendre en cours
 
 ## Contributeurs :
- - Peter DIVRY 
-     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/peter)
- - Alexis BEYRAND 
-     - [Branche reservée](https://github.com/Wither87-fr/PHP_IUT/tree/Wither)
+ - Peter DIVRY
+ - Alexis BEYRAND
  
 ## TODO :
 - [x] Ville
@@ -21,17 +19,23 @@ Depos du PHP a rendre en cours
 - [ ] Personnes
     - [x] Classe Etudiant
     - [x] Classe Salarie
-    - [ ] Classe Personne
+    - [x] Classe Personne
     - [ ] Classe EtudiantManager
     - [ ] Classe SalarieManager
-    - [ ] Classe PersonneManager
+    - [x] Classe PersonneManager
+    - [x] Classe Departement
+    - [x] Classe Division
+    - [x] Classe Fonction
+    - [x] Classe DepartementManager
+    - [x] Classe DivisionManager
+    - [x] Classe FonctionManager
     - [ ] Ajouter une personne
     - [ ] Ajouter un étudiant
     - [ ] Ajouter un salarié
     - [ ] Liste des personnes
     - [ ] Detail sur personne
 - [ ] Connexion
-    - [x] Page Connexion (pas complet, mais fonctionnel)
+    - [ ] Page Connexion
     - [x] Modification Accueil si connecté
     - [ ] Proposer un trajet
     - [ ] Rechercher un trajet
