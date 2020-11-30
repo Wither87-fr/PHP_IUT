@@ -3,9 +3,8 @@
 $valid = false;
   $pm = new PersonneManager($db);
   $listePers = $pm->getAllPersonns();
-  include_once 'include/usefullFunctions.inc.php'; */
   if(isset($_POST['username'])) {
-    $trouve = personneExiste($listePersonne, $personneAtester);
+    $trouve = personneExiste($listePers, $_POST['username']);
     if($trouve) {
       $nom = $_POST['username'];
     }
@@ -14,7 +13,7 @@ $valid = false;
   }
 
   if(isset($_POST['pwd'])) {
-    if(encrypt($_POST['pwd']) === $pm->getPersonneFromLogin($nom)->getPwd()) { // if(verifyPassword($_POST['pwd'], SALT)) {
+    if(encrypt($_POST['pwd']) === $pm->getPersonneFromLogin($_POST['username'])->getPwd()) { // if(verifyPassword($_POST['pwd'], SALT)) {
       $pwd = $_POST['pwd'];
     }
   } else {
@@ -28,7 +27,6 @@ $valid = false;
   } else {
     $valid = false;
   }
-
 
   if(isset($nom) && isset($pwd) && isset($captcha)) {
     $valid = true;

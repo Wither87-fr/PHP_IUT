@@ -16,5 +16,24 @@ class DepartementManager{
 		$req->closeCursor();
 		return $listeDep;
 	}
+
+
+	public function getNomFromNum($depNum) {
+		$sql = "SELECT dep_nom from departement WHERE dep_num = $depNum";
+		$req = $this->db->query($sql);
+		$result = $req->fetch(PDO::FETCH_ASSOC);
+		$depNom = $result['dep_nom'];
+		$req->closeCursor();
+		return $depNom;
+	}
+
+	public function getVilleNumFromId($depNum) {
+		$sql = "SELECT vil_num from departement WHERE dep_num = $depNum";
+		$req = $this->db->query($sql);
+		$result = $req->fetch(PDO::FETCH_ASSOC);
+		$vilNum = $result['vil_num'];
+		$req->closeCursor();
+		return $vilNum;
+	}
 }
 ?>

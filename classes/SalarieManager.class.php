@@ -27,4 +27,22 @@ class SalarieManager{
 	}
 	$req->closeCursor();
 	}
+
+	public function getTelProfFromId($id) {
+		$sql = "SELECT sal_telprof from salarie WHERE per_num = $id";
+		$req = $this->db->query($sql);
+		$result = $req->fetch(PDO::FETCH_ASSOC);
+		$telProf = $result['sal_telprof'];
+		$req->closeCursor();
+		return $telProf;
+	}
+
+	public function getFonNumFromId($id) {
+		$sql = "SELECT fon_num from salarie WHERE per_num = $id";
+		$req = $this->db->query($sql);
+		$result = $req->fetch(PDO::FETCH_ASSOC);
+		$fonNum = $result['fon_num'];
+		$req->closeCursor();
+		return $fonNum;
+	}
 }

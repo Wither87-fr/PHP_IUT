@@ -16,5 +16,15 @@ class FonctionManager{
 		$req->closeCursor();
 		return $listeFon;
 	}
+
+	public function getLibelleFromNum($fonNum) {
+		$sql = "SELECT fon_libelle from fonction WHERE fon_num = $fonNum";
+		$req = $this->db->query($sql);
+		$result = $req->fetch(PDO::FETCH_ASSOC);
+		$fonLibelle = $result['fon_libelle'];
+		$req->closeCursor();
+		return $fonLibelle;
+	}
+
 }
 ?>

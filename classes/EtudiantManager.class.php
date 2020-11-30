@@ -30,9 +30,13 @@
 		$req->closeCursor();
 		}
 
-		public function detailEtudiant($id) {
-		//	$sql =
-			$req = $this->db->query($sql); // A FINIR
-		}
+		public function getDepNumFromId($id) {
+				$sql = "SELECT dep_num from etudiant WHERE per_num = $id";
+				$req = $this->db->query($sql);
+				$result = $req->fetch(PDO::FETCH_ASSOC);
+				$dep = $result['dep_num'];
+				$req->closeCursor();
+				return $dep;
+			} 
 	}
 ?>

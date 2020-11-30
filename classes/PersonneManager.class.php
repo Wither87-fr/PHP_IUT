@@ -44,7 +44,65 @@
 
 
 		public function getPersonneFromLogin($login) {
-			//A FAIRE
+			$sql = "SELECT  per_num, per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd from personne WHERE per_login = '$login'";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_OBJ);
+			$pers = new Personne($result);
+			$req->closeCursor();
+			return $pers;
+		}
+
+		public function countPersonne() {
+			$sql = "SELECT COUNT(per_num) AS nb_pers FROM personne";
+			$req = $this->db->query($sql);
+			$res = $req->fetch(PDO::FETCH_ASSOC);
+			$nb = $res['nb_pers'];
+			$req->closeCursor();
+			return $nb;
+		}
+
+		public function isEtudiant($id) {
+			$sql = "SELECT IF(COUNT(per_num) > 0, 'true', 'false') FROM etudiant WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch();
+			$req->closeCursor();
+			return $result[0];
+		}
+
+		public function getPrenomFromId($id) {
+			$sql = "SELECT per_prenom from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$pre = $result['per_prenom'];
+			$req->closeCursor();
+			return $pre;
+		}
+
+		public function getNomFromId($id) {
+			$sql = "SELECT per_nom from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$nom = $result['per_nom'];
+			$req->closeCursor();
+			return $nom;
+		}
+
+		public function getMailFromId($id) {
+			$sql = "SELECT per_mail from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$mail = $result['per_mail'];
+			$req->closeCursor();
+			return $mail;
+		}
+
+		public function getTelFromId($id) {
+			$sql = "SELECT per_tel from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$tel = $result['per_tel'];
+			$req->closeCursor();
+			return $tel;
 		}
 
 
