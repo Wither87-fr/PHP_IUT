@@ -43,5 +43,9 @@
 		}
 
 
+		public function getPersonneFromLogin($login) {
+			//A FAIRE
+		}
+
 
 	}

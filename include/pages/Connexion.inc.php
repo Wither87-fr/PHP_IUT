@@ -1,16 +1,12 @@
 
 <?php
 $valid = false;
-  /* FUTUR, en attendant seulement des verification manuelles sans passer par le PHP
   $pm = new PersonneManager($db);
-  $listePers = $pm->recupPersonnes();
+  $listePers = $pm->getAllPersonns();
   include_once 'include/usefullFunctions.inc.php'; */
   if(isset($_POST['username'])) {
-    /*
     $trouve = personneExiste($listePersonne, $personneAtester);
-
-    */
-    if($_POST['username'] === "bob") { //if($trouve) {
+    if($trouve) {
       $nom = $_POST['username'];
     }
   } else {
@@ -18,7 +14,7 @@ $valid = false;
   }
 
   if(isset($_POST['pwd'])) {
-    if($_POST['pwd'] === "IUT") { // if(verifyPassword($_POST['pwd'], SALT)) {
+    if(encrypt($_POST['pwd']) === $pm->getPersonneFromLogin($nom)->getPwd()) { // if(verifyPassword($_POST['pwd'], SALT)) {
       $pwd = $_POST['pwd'];
     }
   } else {
