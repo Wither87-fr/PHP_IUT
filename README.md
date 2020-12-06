@@ -32,14 +32,14 @@ Depos du PHP a rendre en cours
     - [x] Ajouter une personne
     - [x] Ajouter un étudiant
     - [x] Ajouter un salarié
-    - [ ] Liste des personnes
-    - [ ] Detail sur personne
+    - [x] Liste des personnes
+    - [x] Detail sur personne
     - [ ] Modifier une personne
     - [ ] Supprimer une personne
 - [ ] Connexion - Partiel
-    - [ ] Page Connexion - Partiel
+    - [x] Page Connexion
     - [x] Modification Accueil si connecté
-    - [ ] Proposer un trajet - Partiel
+    - [x] Proposer un trajet
     - [ ] Rechercher un trajet
 - [x] Bonus :
     - [x] Permettre la saisie des dates par l'intermédiaire d'un calendrier (type DatePicker en javaFX)
@@ -49,5 +49,6 @@ Depos du PHP a rendre en cours
 ## __Consignes Absolues :__
 - Pas de requete SQL dans le PHP
 - Pas d'HTML dans les classes
+- Commenter les fichiers
 - Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
 - Donner les accés en lecture à M. Chastagner
