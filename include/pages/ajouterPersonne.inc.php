@@ -2,31 +2,24 @@
   //include_once 'include/ejectNotConnected.inc.php';
   if(isset($_POST['per_nom'])) {
     $per_nom = $_POST['per_nom'];
-    $_SESSION['per_nom'] = $_POST['per_nom'];
   }
 	if(isset($_POST['per_prenom'])) {
     $per_prenom = $_POST['per_prenom'];
-    $_SESSION['per_prenom'] = $_POST['per_prenom'];
   }
 	if(isset($_POST['per_tel'])) {
     $per_tel = $_POST['per_tel'];
-    $_SESSION['per_tel'] = $_POST['per_tel'];
   }
 	if(isset($_POST['per_mail'])) {
     $per_mail = $_POST['per_mail'];
-    $_SESSION['per_mail'] = $_POST['per_mail'];
   }
 	if(isset($_POST['per_login'])) {
     $per_login = $_POST['per_login'];
-    $_SESSION['per_login'] = $_POST['per_login'];
   }
 	if(isset($_POST['per_pwd'])) {
     $per_pwd = $_POST['per_pwd'];
-    $_SESSION['per_pwd'] = $_POST['per_pwd'];
   }
   if(isset($_POST['choix'])) {
     $choix = $_POST['choix'];
-    $_SESSION['choix'] = $_POST['choix'];
   }
 
 
@@ -42,26 +35,12 @@
     $num_pers = $_POST['num_pers'];
   }
 
-  if(isset($_SESSION['per_nom'])) {
-    $per_nom = $_SESSION['per_nom'];
+  if(isset($_POST['tel_prof'])) {
+    $tel_prof = $_POST['tel_prof'];
   }
-  if(isset($_SESSION['per_prenom'])) {
-    $per_prenom = $_SESSION['per_prenom'];
-  }
-  if(isset($_SESSION['per_tel'])) {
-    $per_tel = $_SESSION['per_tel'];
-  }
-  if(isset($_SESSION['per_mail'])) {
-    $per_mail = $_SESSION['per_mail'];
-  }
-  if(isset($_SESSION['per_login'])) {
-    $per_login = $_SESSION['per_login'];
-  }
-  if(isset($_SESSION['per_pwd'])) {
-    $per_pwd = $_SESSION['per_pwd'];
-  }
-  if(isset($_SESSION['choix'])) {
-    $choix = $_SESSION['choix'];
+
+  if(isset($_POST['fonction'])) {
+    $fonction = $_POST['fonction'];
   }
 ?>
 
@@ -90,13 +69,15 @@
 	} else {
     $pm = new PersonneManager($db);
 
-    if(!personneExiste($pm->getAllPersonns(), $per_login)) {
-      $pwd = encrypt($per_pwd);
-      $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd);
+
       switch ($choix) {
         case 'etudiant':
 
         if(!isset($dep) || !isset($annee) || !isset($num_pers)) {
+          if(!personneExiste($pm->getAllPersonns(), $per_login)) {
+            $pwd = encrypt($per_pwd);
+            $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd);
+
           ?>
           <h1>Ajouter un étudiant</h1>
           <?php
@@ -106,6 +87,7 @@
             $listeDep = $depm->listerDepartements();
             ?>
             <form class="customForm" action="#" method="post">
+
               <label for="annee">Année : </label>
               <select name="annee" id="annee">
                   <?php
@@ -128,8 +110,20 @@
               </select>
               <input type="hidden" name="num_pers" value="<?php echo $num_pers; ?>">
               <input type="submit" value="Valider">
+              <input type="hidden" name="per_nom" value="<?php echo $per_nom; ?>">
+              <input type="hidden" name="per_prenom" value="<?php echo $per_prenom; ?>">
+              <input type="hidden" name="per_tel" value="<?php echo $per_tel; ?>">
+              <input type="hidden" name="per_mail" value="<?php echo $per_mail; ?>">
+              <input type="hidden" name="per_login" value="<?php echo $per_login; ?>">
+              <input type="hidden" name="per_pwd" value="<?php echo $per_pwd; ?>">
+              <input type="hidden" name="choix" value="<?php echo $choix; ?>">
             </form>
           <?php
+        } else {
+        ?>
+          <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la personne, login existant déjà <br /> <!--Il y a eu une erreur -->
+        <?php
+        }
         } else {
           $em = new EtudiantManager($db);
           /*$ok =*/$em->addEtudiant($num_pers, $dep, $annee);
@@ -149,6 +143,9 @@
         case 'personnel':
 
           if (!isset($fonction) || !isset($tel_prof) || !isset($num_pers)) {
+            if(!personneExiste($pm->getAllPersonns(), $per_login)) {
+              $pwd = encrypt($per_pwd);
+              $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd);
             ?>
             <h1>Ajouter un salarié</h1>
             <?php
@@ -157,7 +154,7 @@
               ?>
               <form class="customForm" action="#" method="post">
                 <label for="tel_prof">Téléphone professionnel : </label>
-                <input type="tel" name="tel_prof" placeholder="06 66 66 66 66">
+                <input type="tel" name="tel_prof" placeholder="06 66 66 66 66" id="tel_prof">
 
                 <label for="fonction">Fonction : </label>
                 <select name="fonction" id="fonction">
@@ -171,8 +168,20 @@
                 </select>
                 <input type="hidden" name="num_pers" value="<?php echo $num_pers; ?>">
                 <input type="submit" value="Valider">
+                <input type="hidden" name="per_nom" value="<?php echo $per_nom; ?>">
+                <input type="hidden" name="per_prenom" value="<?php echo $per_prenom; ?>">
+                <input type="hidden" name="per_tel" value="<?php echo $per_tel; ?>">
+                <input type="hidden" name="per_mail" value="<?php echo $per_mail; ?>">
+                <input type="hidden" name="per_login" value="<?php echo $per_login; ?>">
+                <input type="hidden" name="per_pwd" value="<?php echo $per_pwd; ?>">
+                <input type="hidden" name="choix" value="<?php echo $choix; ?>">
               </form>
               <?php
+            } else {
+            ?>
+              <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la personne, login existant déjà <br /> <!--Il y a eu une erreur -->
+            <?php
+            }
           } else {
             $sm = new SalarieManager($db);
             /*$ok =*/$sm->addSalarie($num_pers, $tel_prof, $fonction);
@@ -192,19 +201,12 @@
         default:
           break;
         }
-    } else {
-    ?>
-      <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la personne, login existant déjà <br /> <!--Il y a eu une erreur -->
-    <?php
-    }
 
 
 
-      //A la fin, on enleve les variables de session innutiles :
-      $nom = $_SESSION['username'];
-      session_destroy();
-      session_start();
-      $_SESSION['connecte'] = "true";
-      $_SESSION['username'] = $nom;
+
+
+
+
 	}
 ?>

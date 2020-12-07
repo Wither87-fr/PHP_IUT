@@ -6,7 +6,7 @@ class SalarieManager{
 	}
 
 	public function addSalarie($per_num, $sal_telprof, $fon_num) {
-		$sql = "INSERT INTO etudiant(per_num, sal_telprof, fon_num) VALUES (:per_num, :sal_telprof, :fon_num) "; //préparation de la requête
+		$sql = "INSERT INTO salarie(per_num, sal_telprof, fon_num) VALUES (:per_num, :sal_telprof, :fon_num) "; //préparation de la requête
 		$req = $this->db->prepare($sql);
 
 		//Valorisation de la requête
@@ -44,5 +44,12 @@ class SalarieManager{
 		$fonNum = $result['fon_num'];
 		$req->closeCursor();
 		return $fonNum;
+	}
+
+	public function delSal($id) {
+		$sql = "DELETE FROM salarie WHERE per_num=$id";
+		$req = $this->db->prepare($sql);
+		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+		return $effectue;
 	}
 }

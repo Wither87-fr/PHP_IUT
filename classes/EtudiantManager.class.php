@@ -37,6 +37,22 @@
 				$dep = $result['dep_num'];
 				$req->closeCursor();
 				return $dep;
-			} 
+			}
+
+			public function getDivNumFromId($id) {
+					$sql = "SELECT div_num from etudiant WHERE per_num = $id";
+					$req = $this->db->query($sql);
+					$result = $req->fetch(PDO::FETCH_ASSOC);
+					$div = $result['dep_num'];
+					$req->closeCursor();
+					return $div;
+				}
+
+	public function delEtu($id) {
+		$sql = "DELETE FROM etudiant WHERE per_num=$id";
+		$req = $this->db->prepare($sql);
+		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+		return $effectue;
 	}
+}
 ?>

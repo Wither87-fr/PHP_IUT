@@ -105,5 +105,30 @@
 			return $tel;
 		}
 
+		public function getLoginFromId($id) {
+			$sql = "SELECT per_login from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$log = $result['per_login'];
+			$req->closeCursor();
+			return $log;
+		}
+
+		public function delPers($id_personne) {
+			$isEtudiant = $this->isEtudiant($id_personne);
+			if($isEtudiant === 'true') {
+				$em = new EtudiantManager($this->db);
+				$em->delEtu($id_personne);
+			} else {
+				$sm = new SalarieManager($this->db);
+				$sm->delSal($id_personne);
+			}
+
+			$sql = "DELETE FROM personne WHERE per_num=$id_personne";
+			$req = $this->db->prepare($sql);
+		  $effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+			return $effectue;
+		}
+
 
 	}
