@@ -189,10 +189,10 @@
             $listeFon = $fonm->listerFonctions();
             ?>
               <label for="tel_prof">Téléphone professionnel : </label>
-              <input type="tel" name="tel_prof" value="<?php echo $sm->getTelProfFromId($id); ?>" id="tel_prof" required>
+              <input type="tel" name="tel_prof" value="<?php echo $sm->getTelProfFromId($id); ?>" id="tel_prof">
 
               <label for="fonction">Fonction : </label>
-              <select name="fonction" id="fonction" required>
+              <select name="fonction" id="fonction">
                   <?php
                     foreach ($listeFon as $value) {
                       ?>
@@ -231,5 +231,3 @@
   }
 }
 ?>
-
-}
