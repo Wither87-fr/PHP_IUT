@@ -1,5 +1,7 @@
 <?php
-
+/**
+* Classe représentant la table "Etiudiant" de la BD
+*/
 	class Etudiant
 	{
 		private $per_num;

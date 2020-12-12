@@ -1,7 +1,7 @@
 <?php
-  /**
-   *
-   */
+/**
+* Classe représentant la table "Propose" de la BD
+*/
   class Propose
   {
     private $parcoursNum;

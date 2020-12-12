@@ -1,13 +1,15 @@
 <?php
+/**
+* la vérification suivante permettent d'avoir des raccourci pour les variables envoyées par formulaire.
+*/
   if(isset($_POST['idPers'])) {
     $id = $_POST['idPers'];
   }
 ?>
 
 <h1>Supprimer une personne</h1>
-<!-- 1 : Choisir une personne -->
 <?php
- if(!isset($id)) {
+ if(!isset($id)) { // Premier appel
    $pm = new PersonneManager($db);
    ?>
     <form class="customForm" action="#" method="post">
@@ -25,17 +27,14 @@
       <input type="submit" value="Supprimer">
     </form>
    <?php
- } else {
-   ?>
-      <!-- 2 : Supprimer la personne -->
-   <?php
+  } else { // Deuxième appel
    $pm = new PersonneManager($db);
-   $effectue = $pm->delPers($id);
+   $effectue = $pm->delPers($id); // Supression de la personne
    if($effectue) {
-     ?>
+    ?>
       <img src="image/valid.png" alt="OK"> La personne a été supprimé. <br /> <!--Tout s'est bien passé-->
     <?php
-  } else {
+    } else {
     ?>
       <img src="image/erreur.png" alt="NOP"> Erreur lors de la suppression de la personne. <br /> <!--Il y a eu une erreur -->
       <?php

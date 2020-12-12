@@ -1,4 +1,7 @@
 <?php
+/**
+* Classe représentant la table "Parcours" de la BD
+*/
 	class Parcours
 	{
 		private $id;

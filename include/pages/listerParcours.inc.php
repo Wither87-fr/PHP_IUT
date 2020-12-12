@@ -1,14 +1,11 @@
-<?php
-//include_once 'include/ejectNotConnected.inc.php';
-?>
 <h1>Liste des parcours proposés</h1>
   <?php
     $pm = new ParcoursManager($db);
     $vm = new VilleManager($db);
   ?>
-  <p>Actuellement <?php echo $pm->countParcours(); ?> parcours sont enregistrés</p>
+  <p>Actuellement <?php echo $pm->countParcours(); //compte le nombre de parcours existant?> parcours sont enregistrés</p>
   <?php
-    $listeParcours = $pm->listerParcoursProposés();
+    $listeParcours = $pm->listerParcoursProposés(); // La liste des parcours
   ?>
   <table>
     <thead>

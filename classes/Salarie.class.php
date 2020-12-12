@@ -1,4 +1,7 @@
 <?php
+/**
+* Classe représentant la table "Salarie" de la BD
+*/
 	class Salarie
 	{
 

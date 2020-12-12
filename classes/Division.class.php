@@ -1,4 +1,7 @@
-<?php //A COMPLETER
+<?php
+/**
+* Classe représentant la table "Division" de la BD
+*/
 class Division{
 	private $num;
   private $nom;

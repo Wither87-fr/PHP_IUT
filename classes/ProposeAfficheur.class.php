@@ -1,7 +1,7 @@
 <?php
-  /**
-   *
-   */
+/**
+* Classe permettant d'afficher des trajets
+*/
   class ProposeAfficheur
   {
     private $villeDepart;
@@ -16,10 +16,10 @@
     {
       if(!empty($valeurs)) {
         $this->affecte($valeurs);
-        if($this->sens === 1) {
-          $temp = $this->villeArrivee;
-          $this->villeArrivee = $this->villeDepart;
-          $this->villeDepart = $temp;
+        if($this->sens === 1) { // le sens va de ville2 à ville1
+          $temp = $this->villeArrivee; // variable enregistrant ville2
+          $this->villeArrivee = $this->villeDepart; // on met ville1 en destination
+          $this->villeDepart = $temp; // on met ville1 en départ
         }
       }
     }

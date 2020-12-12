@@ -1,12 +1,20 @@
 <?php
+	/**
+	* ajoute nbJours à date
+	* @param date : la date à laquelle ajouter des jours
+	* @param nbJours : Le nombre de jours à ajouter
+	* @return date : la date avec nbJours supplémentaires
+	*/
 	function addJours($date, $nbJours){
-
 		$membres = explode('-', $date);
 		$day = $membres[2];
 		$month = $membres[1];
 		$year = $membres[0];
+		// Si oui ou non le mois a 31 jours
 		$month31days = ((intval($month) == 1) || (intval($month) == 3) ||(intval($month) == 5) ||(intval($month) == 7) || (intval($month) == 8) ||(intval($month) == 10) || (intval($month) == 12));
+		// Si oui ou non il s'agit du mois de février
 		$february = intval($month) == 2;
+		//Si l'anée est bissextile ou non
 		$anneBis = ((intval($year) % 4) == 0) || (((intval($year) % 100) == 0) && (intval($year) % 400) == 0);
 		if (intval($day) == 31 && $month31days && $nbJours > 0) {
 			$day = 0;
@@ -36,6 +44,12 @@
 		return $date;
 	}
 
+	/**
+	* Vérifie que le mot de passe fourni et son hash correspondent
+	* @param password : le mot de passe a comparer
+	* @param hashed : Le mot de passe hashé
+	* @return verified : Si oui ou non les deux correspondent
+	*/
 	function verifyPassword($password, $hashed) {
     if(!empty($password)) {
       return encrypt($password) === $hashed;
@@ -45,25 +59,44 @@
 
   }
 
+	/**
+	* Vérifie qu'une personne se trouve dans la liste
+	* @param listePersonne : La liste contenant toutes les personnes
+	* @param personneAtester : La personne que l'on recherche dans la liste
+	* @return trouve : Si oui ou non la personne est présente dans la liste
+	*/
   function personneExiste($listePersonne, $personneAtester) {
     $trouve = false;
     foreach ($listePersonne as $unepers) {
       if($unepers->getLogin() === $personneAtester) {
       $trouve = true;
+    	}
     }
-    }
-
     return $trouve;
   }
 
-  function convertToUTF8($string) {
-    return mb_convert_encoding($string, "UTF-8");
+	/**
+	* ajoute nbJours à date
+	* @param toConvert : la chaîne à convertir
+	* @return converted : la chaîne convertie en UTF-8
+	*/
+  function convertToUTF8($toConvert) {
+    return mb_convert_encoding($toConvert, "UTF-8");
   }
 
+	/**
+	* Hash un mot de passe
+	* @param password : le mot de passe que l'on veut hasher
+	* @return hashedPassword : Le mot de passe hashé
+	*/
   function encrypt($password) {
     return sha1(sha1(convertToUTF8($password)).convertToUTF8(SALT));
   }
 
+	/**
+	* Crée un un onglet "select" d'un formulaire contenant des heures (de 0 à 23)
+	* @return selectBox : l'onglet "select"
+	*/
   function createHourList() {
     ?>
       <select name="heure_min" id="heure_min">

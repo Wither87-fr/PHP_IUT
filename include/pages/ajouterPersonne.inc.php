@@ -1,5 +1,7 @@
 <?php
-  //include_once 'include/ejectNotConnected.inc.php';
+/**
+* les douze vérifications suivantes permettent d'avoir des raccourci pour les variables envoyées par formulaire.
+*/
   if(isset($_POST['per_nom'])) {
     $per_nom = $_POST['per_nom'];
   }
@@ -21,8 +23,6 @@
   if(isset($_POST['choix'])) {
     $choix = $_POST['choix'];
   }
-
-
   if(isset($_POST['annee'])) {
     $annee = $_POST['annee'];
   }
@@ -46,7 +46,7 @@
 
 
 <?php
-	if (!isset($per_nom) || !isset($per_prenom) || !isset($per_tel) || !isset($per_mail) || !isset($per_login) || !isset($per_pwd) || !isset($choix)) {
+	if (!isset($per_nom) || !isset($per_prenom) || !isset($per_tel) || !isset($per_mail) || !isset($per_login) || !isset($per_pwd) || !isset($choix)) { //Premier appel
 		?>
     <h1>Ajouter une personne</h1>
 		<form class="customForm" action="#" method="post">
@@ -66,17 +66,17 @@
 			<input type="submit" value="Valider">
 		</form>
 		<?php
-	} else {
+	} else { // Deuxième ou troisième appel
     $pm = new PersonneManager($db);
 
 
-      switch ($choix) {
+      switch ($choix) { //Comme il y a deux choix possible, on a deux formaulaires possibles, et ils sont donc traités ici.
         case 'etudiant':
 
-        if(!isset($dep) || !isset($annee) || !isset($num_pers)) {
-          if(!personneExiste($pm->getAllPersonns(), $per_login)) {
+        if(!isset($dep) || !isset($annee) || !isset($num_pers)) {  // Deuxième appel
+          if(!personneExiste($pm->getAllPersonns(), $per_login)) { // Le login n'existe pas déjà
             $pwd = encrypt($per_pwd);
-            $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd);
+            $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd); // Ajoute la personne dans la BD et renvoie son numéro
 
           ?>
           <h1>Ajouter un étudiant</h1>
@@ -119,17 +119,17 @@
               <input type="hidden" name="choix" value="<?php echo $choix; ?>">
             </form>
           <?php
-        } else {
+        } else { //Le login existe déjà :
         ?>
           <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la personne, login existant déjà <br /> <!--Il y a eu une erreur -->
         <?php
         }
-        } else {
+      } else { // Troisième appel
           $em = new EtudiantManager($db);
-          $ok = $em->addEtudiant($num_pers, $dep, $annee);
+          $ok = $em->addEtudiant($num_pers, $dep, $annee); //Ajoute l'étudiant dans la BD
           if($ok) {
           ?>
-              <img src="image/valid.png" alt="OK"> L'étudiant a été ajoutée <!--Tout s'est bien passé-->
+              <img src="image/valid.png" alt="OK"> L'étudiant a été ajoutée <br /> <!--Tout s'est bien passé-->
           <?php
           } else {
           ?>
@@ -140,10 +140,10 @@
           break;
         case 'personnel':
 
-          if (!isset($fonction) || !isset($tel_prof) || !isset($num_pers)) {
-            if(!personneExiste($pm->getAllPersonns(), $per_login)) {
+          if (!isset($fonction) || !isset($tel_prof) || !isset($num_pers)) { // Deuxième appel
+            if(!personneExiste($pm->getAllPersonns(), $per_login)) { // Le login n'existe pas déjà
               $pwd = encrypt($per_pwd);
-              $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd);
+              $num_pers = $pm->addPersonne($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $pwd); // Ajoute la personne dans la BD et renvoie son numéro
             ?>
             <h1>Ajouter un salarié</h1>
             <?php
@@ -175,14 +175,14 @@
                 <input type="hidden" name="choix" value="<?php echo $choix; ?>">
               </form>
               <?php
-            } else {
+            } else { // Le login existe déjà
             ?>
               <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la personne, login existant déjà <br /> <!--Il y a eu une erreur -->
             <?php
             }
-          } else {
+          } else { // Troisième Appel
             $sm = new SalarieManager($db);
-            $ok = $sm->addSalarie($num_pers, $tel_prof, $fonction);
+            $ok = $sm->addSalarie($num_pers, $tel_prof, $fonction); //Ajoute le salarié dans la BD
             if($ok) {
             ?>
                 <img src="image/valid.png" alt="OK"> Le salarié a été ajoutée <!--Tout s'est bien passé-->
@@ -197,12 +197,5 @@
         default:
           break;
         }
-
-
-
-
-
-
-
 	}
 ?>

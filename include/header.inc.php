@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-  $accueil = $_SERVER["PHP_SELF"];
+  $accueil = $_SERVER["PHP_SELF"]; // c'est l'adresse de l'accueil
   require_once 'autoload.inc.php';
   require_once 'db.inc.php';
   require_once 'functions.inc.php';
@@ -34,12 +34,12 @@
 			</div>
 			<div id="connect">
 
-        <?php if(isset($_SESSION['connecte'])) {
+        <?php if(isset($_SESSION['connecte'])) { // L'utilisateur est connecté
           ?>
           Utilisateur: <b><?php echo $_SESSION['username']; ?></b>
           <a href="index.php?page=12">Deconnexion</a>
           <?php
-        } else {
+        } else { // L'utilisateur n'est pas connecté
           ?>
           <a href="index.php?page=11">Connexion</a>
           <?php

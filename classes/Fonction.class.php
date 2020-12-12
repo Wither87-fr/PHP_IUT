@@ -1,4 +1,7 @@
 <?php
+/**
+* Classe représentant la table "Fonction" de la BD
+*/
 class Fonction{
 	private $num;
 	private $nom;

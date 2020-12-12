@@ -1,5 +1,7 @@
 <?php
-  //include_once 'include/ejectNotConnected.inc.php';
+/**
+* les trois vérifications suivantes permettent d'avoir des raccourci pour les variables envoyées par formulaire.
+*/
   if(isset($_POST['km'])) {
     $km = $_POST['km'];
   }
@@ -14,9 +16,9 @@
 
 <h1>Ajouter un parcours</h1>
 <?php
-  if(!isset($km) || !isset($ville1) || !isset($ville2)) {
+  if(!isset($km) || !isset($ville1) || !isset($ville2)) { //Premier appel
     $vm = new VilleManager($db);
-    $parcours = $vm->listerVilles();
+    $parcours = $vm->listerVilles(); //Renvoie la totalité des villes de la base de donnée.
     ?>
       <form class="customForm" action="#" method="post">
         <label for="ville1">Ville 1 : </label>
@@ -45,8 +47,18 @@
         <input type="submit" value="Valider">
       </form>
     <?php
-  } else {
+  } else { //Deuxième appel
     $pm = new ParcoursManager($db);
-    $pm->addParcours($km, $ville1, $ville2);
+    $ok = $pm->addParcours($km, $ville1, $ville2); //Ajoute le parcours dans la BD
+    if($ok) {
+      ?>
+        <img src="image/valid.png" alt="OK"> Le parcours a été ajoutée <br /><!--Tout s'est bien passé-->
+      <?php
+    } else {
+      ?>
+        <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du parcours <br /> <!--Il y a eu une erreur -->
+      <?php
+    }
+    }
   }
 ?>

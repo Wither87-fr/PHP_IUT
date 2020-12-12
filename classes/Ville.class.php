@@ -1,5 +1,7 @@
 <?php
-
+/**
+* Classe représentant la table "Ville" de la BD
+*/
 	class Ville
 	{
 		private $num;

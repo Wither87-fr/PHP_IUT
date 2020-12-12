@@ -1,4 +1,9 @@
 <?php
+include_once 'ejectNotConnected.inc.php'; // Il s'agit d'une page à accès restreint.
+
+/**
+* les cinq vérifications suivantes permettent d'avoir des raccourci pour les variables envoyées par formulaire.
+*/
 if(isset($_POST['vil_dep'])) {
   $vil_dep = $_POST['vil_dep'];
 }
@@ -18,7 +23,7 @@ if(isset($_POST['heure_min'])) {
 ?>
   <h1>Rechercher un trajet</h1>
 <?php
-if(!isset($vil_dep)) {
+if(!isset($vil_dep)) { //Premier appel
   $propm = new ProposeManager($db);
   $listeVilleDep = $propm->getVillesDepartDejaProposees();
   ?>
@@ -36,8 +41,8 @@ if(!isset($vil_dep)) {
       <input type="submit" value="Valider">
     </form>
   <?php
-} else {
-  if(!isset($vil_ar) || !isset($date_dep) || !isset($precision) || !isset($heure_min)) {
+} else { //Deuxième ou troisième appel
+  if(!isset($vil_ar) || !isset($date_dep) || !isset($precision) || !isset($heure_min)) { //Deuxième appel
     $vm = new VilleManager($db);
     $propm = new ProposeManager($db);
     $listeVilleArrivee = $propm->getVillesArriveeDejaProposees($vil_dep);
@@ -68,7 +73,7 @@ if(!isset($vil_dep)) {
           <input type="hidden" name="vil_dep" value="<?php echo $vil_dep; ?>">
       </form>
     <?php
-  } else {
+  } else { //Troisième appel
     $propm = new ProposeManager($db);
     $pm = new ParcoursManager($db);
     $vm = new VilleManager($db);
@@ -76,11 +81,11 @@ if(!isset($vil_dep)) {
     $par_num = $pm->getParNumByVille1AndVille2($vil_dep, $vil_ar);
     $date_max = addJours($date_dep, intval($precision));
     $tab = $propm->getPropositions($par_num, $date_dep, $heure_min, $date_max); // renvoie un tableau de "ProposeAfficheur"
-    if (count($tab)===0) {
+    if (count($tab)===0) { // Il n'y a pas de trajets disponible avec les valeurs selectionnées.
       ?>
       <img src="image/erreur.png" alt="NOP">Désolé, pas de trajet disponible ! <br />
       <?php
-    } else {
+    } else { // Des trajets ont été trouvés
       ?>
         <table>
           <thead>
@@ -103,7 +108,18 @@ if(!isset($vil_dep)) {
                     <td><?php echo $parcours->getDate();?></td>
                     <td><?php echo $parcours->getHeure(); ?></td>
                     <td><?php echo $parcours->getPlaces(); ?></td>
-                    <td><acronym title="Moyenne des avis : <?php echo number_format($perm->getAvgNote($parcours->getConducteur()), 2); ?>, Dernier avis : <?php echo $perm->getCommentaire($parcours->getConducteur()); ?>"><?php echo $perm->getPrenomFromId($parcours->getConducteur())." ".$perm->getNomFromId($parcours->getConducteur()); ?></acronym></td>
+                    <td>
+                      <acronym title="Moyenne des avis :
+                        <?php
+                          echo number_format($perm->getAvgNote($parcours->getConducteur()), 2); //number_format(nombre, nb_chiffre_apres_virgule) permet de rendre la moyenne plus lisible.
+                        ?>, Dernier avis :
+                        <?php
+                          echo $perm->getCommentaire($parcours->getConducteur()); // Le dernier commentaire du conducteur
+                        ?>">
+                        <?php
+                          echo $perm->getPrenomFromId($parcours->getConducteur())." ".$perm->getNomFromId($parcours->getConducteur()); // Le conducteur
+                        ?></acronym>
+                    </td>
                   </tr>
                 <?php
               }
