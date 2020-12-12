@@ -50,6 +50,6 @@ Depos du PHP a rendre en cours
 - [x] Pas de requete SQL dans le PHP
 - [x] Pas d'HTML dans les classes
 - [ ] Valider au W3C
-- [ ] Commenter les fichiers
+- [x] Commenter les fichiers
 - [ ] Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
 - [ ] Donner les accés en lecture à M. Chastagner
