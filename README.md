@@ -16,13 +16,13 @@ Depos du PHP a rendre en cours
     - [x] Classe ParcoursManager
     - [x] Ajouter un parcours
     - [x] Liste des parcours
-- [ ] Personnes - Partiel
+- [x] Personnes
     - [x] Classe Etudiant
     - [x] Classe Salarie
     - [x] Classe Personne
-    - [ ] Classe EtudiantManager - Partiel
-    - [ ] Classe SalarieManager - Partiel
-    - [ ] Classe PersonneManager - Partiel
+    - [x] Classe EtudiantManager
+    - [x] Classe SalarieManager
+    - [x] Classe PersonneManager
     - [x] Classe Departement
     - [x] Classe Division
     - [x] Classe Fonction
@@ -34,21 +34,22 @@ Depos du PHP a rendre en cours
     - [x] Ajouter un salarié
     - [x] Liste des personnes
     - [x] Detail sur personne
-    - [ ] Modifier une personne
-    - [ ] Supprimer une personne
-- [ ] Connexion - Partiel
+    - [x] Modifier une personne
+    - [x] Supprimer une personne
+- [x] Connexion
     - [x] Page Connexion
     - [x] Modification Accueil si connecté
     - [x] Proposer un trajet
-    - [ ] Rechercher un trajet
+    - [x] Rechercher un trajet
 - [x] Bonus :
     - [x] Permettre la saisie des dates par l'intermédiaire d'un calendrier (type DatePicker en javaFX)
     - [x] Verifier le bon formatage de l'adresse mail et du numéro de téléphone
     
 
 ## __Consignes Absolues :__
-- Pas de requete SQL dans le PHP
-- Pas d'HTML dans les classes
-- Commenter les fichiers
-- Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
-- Donner les accés en lecture à M. Chastagner
+- [x] Pas de requete SQL dans le PHP
+- [x] Pas d'HTML dans les classes
+- [ ] Valider au W3C
+- [ ] Commenter les fichiers
+- [ ] Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
+- [ ] Donner les accés en lecture à M. Chastagner
