@@ -1,4 +1,4 @@
-<?php //A COMPLETER
+<?php 
 class DivisionManager{
 	private $db;
 	public function __construct($db) {

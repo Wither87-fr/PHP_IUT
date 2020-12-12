@@ -27,7 +27,7 @@
 
 
 
-    public function affecte($donnees) {
+    public function affecte($donees) {
       foreach ($donees as $key => $value) {
         switch ($key) {
           case 'ville1':
@@ -56,7 +56,6 @@
         }
       }
     }
-  }
 
 
 
@@ -100,11 +99,11 @@
     return $this->heure;
   }
   public function getPlaces() {
-    return $this->place;
+    return $this->places;
   }
   public function getConducteur() {
     return $this->conducteur;
   }
-
+}
 
 ?>

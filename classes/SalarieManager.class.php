@@ -16,15 +16,7 @@ class SalarieManager{
 
 		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 
-		if($effectue) {
-			?>
-			<img src="image/valid.png" alt="OK"> Le salarié a été ajoutée <!--Tout s'est bien passé-->
-			<?php
-		} else {
-			?>
-			<img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du salarié <br /> <!--Il y a eu une erreur -->
-			<?php
-	}
+		return $effectue;
 	$req->closeCursor();
 	}
 
@@ -49,6 +41,16 @@ class SalarieManager{
 	public function delSal($id) {
 		$sql = "DELETE FROM salarie WHERE per_num=$id";
 		$req = $this->db->prepare($sql);
+		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+		return $effectue;
+	}
+
+	public function updateInfos($tel_prof, $fon_num, $id) {
+		$sql = "UPDATE salarie SET sal_telprof = :tel_prof; fon_num = :fon_num WHERE per_num = :id";
+		$req = $this->db->prepare($sql);
+		$req->bindValue('tel_prof', $tel_prof);
+		$req->bindValue('fon_num', $fon_num);
+		$req->bindValue('id', $id);
 		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 		return $effectue;
 	}

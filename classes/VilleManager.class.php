@@ -15,21 +15,7 @@
 	      $req->bindValue(':nomVille', $nomVille, PDO::PARAM_STR); //valorisation de la requête
 	     // $req->execute(); //execution
 			 $effectue = $req->execute();
-			 if($effectue) {
-				 ?>
- 	        <img src="image/valid.png" alt="OK"> La ville "<b><?php echo $nomVille; ?></b>" a été ajoutée <!--Tout s'est bien passé-->
- 	      <?php
-			} else {
- 	   // } catch(PDOException $e) {
- 	      ?>
- 	        <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la ville. <br /> <!--Il y a eu une erreur -->
-					<?php
-
-			 }
-	       // if($bool) {
-	          //echo $e->getMessage(); //affichage seulement en environnement DEV.
-	        //}
-	   // }
+			 return $effectue;
 
 	    $req->closeCursor();
 		}

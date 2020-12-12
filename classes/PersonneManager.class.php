@@ -114,6 +114,15 @@
 			return $log;
 		}
 
+		public function getPasswordFromId($id) {
+			$sql = "SELECT per_pwd from personne WHERE per_num = $id";
+			$req = $this->db->query($sql);
+			$result = $req->fetch(PDO::FETCH_ASSOC);
+			$pwd = $result['per_pwd'];
+			$req->closeCursor();
+			return $pwd;
+		}
+
 		public function delPers($id_personne) {
 			$isEtudiant = $this->isEtudiant($id_personne);
 			if($isEtudiant === 'true') {
@@ -123,12 +132,56 @@
 				$sm = new SalarieManager($this->db);
 				$sm->delSal($id_personne);
 			}
-
 			$sql = "DELETE FROM personne WHERE per_num=$id_personne";
 			$req = $this->db->prepare($sql);
 		  $effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 			return $effectue;
 		}
 
+		public function updateAll($per_nom, $per_prenom, $per_tel, $per_mail, $per_login, $id) {
+			$sql = "UPDATE personne SET per_nom = :per_nom, per_prenom = :per_prenom, per_tel = :per_tel, per_mail = :per_mail, per_login = :per_login WHERE per_num = :id";
+			$req = $this->db->prepare($sql);
+
+			//Valorisation de la requête
+			$req->bindValue(':id', $id);
+			$req->bindValue(':per_nom', $per_nom);
+			$req->bindValue(':per_prenom', $per_prenom);
+			$req->bindValue(':per_tel', $per_tel);
+			$req->bindValue(':per_mail', $per_mail);
+			$req->bindValue(':per_login', $per_login);
+
+			$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+			return $effectue;
+		}
+
+			public function updatePwd($id, $per_pwd) {
+				$sql = "UPDATE personne SET per_pwd = :per_pwd WHERE per_num = :id";
+				$req = $this->db->prepare($sql);
+
+				//Valorisation de la requête
+				$req->bindValue(':id', $id);
+				$req->bindValue(':per_pwd', $per_pwd);
+
+				$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+				return $effectue;
+			}
+
+			public function getCommentaire($id) {
+				$sql = "SELECT avi_comm FROM avis WHERE per_num = $id ORDER BY avi_date DESC";
+				$req = $this->db->query($sql);
+				$res = $req->fetch(PDO::FETCH_ASSOC);
+				$com = $res['avi_comm'];
+				$req->closeCursor();
+				return $com;
+			}
+
+			public function getAvgNote($id) {
+				$sql = "SELECT AVG(avi_note) AS 'note_moyenne' FROM avis WHERE per_num = 1 GROUP BY per_num";
+				$req = $this->db->query($sql);
+				$res = $req->fetch(PDO::FETCH_ASSOC);
+				$note = $res['note_moyenne'];
+				$req->closeCursor();
+				return $note;
+			}
 
 	}

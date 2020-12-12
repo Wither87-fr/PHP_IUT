@@ -1,7 +1,4 @@
 <?php
-/**
- *
- */
 class ProposeManager
 {
 	private $db;
@@ -25,13 +22,14 @@ class ProposeManager
 		return $effectue;
 	}
 
-	public function getPropositions($par_num, $pro_date, $pro_time) {
+	public function getPropositions($par_num, $date_min, $heure_min, $date_max) {
 		$listeProposition = array();
-		$sql = "SELECT p.vil_num1 AS 'ville1', p.vil_num2 AS 'ville2', pr.pro_date AS 'date', pr.pro_time AS 'heure', pr.pro_place AS 'places', pe.per_nom AS 'conducteur', pr.pro_sens AS 'sens' FROM parcours p, propose pr, personne pe WHERE p.par_num = pr.par_num AND pr.per_num = pe.per_num AND pr.par_num = :par_num AND pr.pro_date = :pro_date AND pr.pro_time = :pro_time"
+		$sql = "SELECT p.vil_num1 AS 'ville1', p.vil_num2 AS 'ville2', pr.pro_date AS 'date', pr.pro_time AS 'heure', pr.pro_place AS 'places', pe.per_num AS 'conducteur', pr.pro_sens AS 'sens' FROM parcours p, propose pr, personne pe WHERE p.par_num = pr.par_num AND pr.per_num = pe.per_num AND pr.par_num = :par_num AND (pr.pro_date BETWEEN :date_min AND :date_max) AND pr.pro_time >= :pro_time ORDER BY pr.pro_date, pr.pro_time";
 		$req = $this->db->prepare($sql);
-		$req->bindValue('par_num', $par_num);
-		$req->bindValue('pro_date', $pro_date, PDO::PARAM_STR);
-		$req->bindValue(':pro_time', $pro_time, PDO::PARAM_STR);
+		$req->bindValue(':par_num', $par_num);
+		$req->bindValue(':date_min', $date_min, PDO::PARAM_STR);
+		$req->bindValue(':date_max', $date_max, PDO::PARAM_STR);
+		$req->bindValue(':pro_time', $heure_min, PDO::PARAM_STR);
 		$req->execute();
 		while($proposeAfficheur = $req->fetch(PDO::FETCH_OBJ)) {
 			$pa = new ProposeAfficheur($proposeAfficheur);
@@ -46,10 +44,7 @@ class ProposeManager
 		$listeVilleDep = array();
 
 		$sql = "SELECT DISTINCT v.vil_num AS 'vil_num', vil_nom FROM ville v JOIN parcours p ON p.vil_num1 = v.vil_num OR p.vil_num2 = v.vil_num JOIN propose pr ON pr.par_num = p.par_num GROUP BY vil_nom, vil_num";
-		$req = $this->db->prepare($sql);
-
-
-
+		$req = $this->db->query($sql);
 		while($ville = $req->fetch(PDO::FETCH_OBJ)) {
 			$v = new Ville($ville);
 			$listeVilleDep[] = $v;
@@ -65,21 +60,27 @@ class ProposeManager
 
 		$listeVilleArrivee = array();
 
-		$sql = "SELECT DISTINCT v.vil_num AS 'vil_num', vil_nom FROM ville v, parcours p, propose pr WHERE ((p.vil_num1 = :villeDep AND pr.pro_sens = 0 AND p.vil_num2 = v.vil_num) OR (p.vil_num2 = :villeDep AND pr.pro_sens = 1 AND p.vil_num1 = v.vil_num)) AND pr.par_num = p.par_num GROUP BY vil_nom, vil_num";
-		$req = $this->db->prepare($sql);
-		$req->bindValue(':villeDep', $villeDepart);
-
+		$sql = "SELECT DISTINCT v.vil_num AS 'vil_num', vil_nom FROM ville v, parcours p, propose pr WHERE ((p.vil_num1 = $villeDepart AND pr.pro_sens = 0 AND p.vil_num2 = v.vil_num) OR (p.vil_num2 = $villeDepart AND pr.pro_sens = 1 AND p.vil_num1 = v.vil_num)) AND pr.par_num = p.par_num GROUP BY vil_nom, vil_num";
+		$req = $this->db->query($sql);
 
 
 		while($ville = $req->fetch(PDO::FETCH_OBJ)) {
 			$v = new Ville($ville);
-			$listeVilleDep[] = $v;
+			$listeVilleArrivee[] = $v;
 		}
 
 		$req->closeCursor();
-		return $listeVilleDep;
+		return $listeVilleArrivee;
 	}
 
 
+
+	public function getSens($par_num, $vil_dep) {
+		$sql = "SELECT IF($vil_dep = p.vil_num1, '0', '1') FROM parcours p WHERE par_num = $par_num";
+		$req = $this->db->query($sql);
+		$sens = $req->fetch();
+		$req->closeCursor();
+		return $sens[0];
+	}
 
 }

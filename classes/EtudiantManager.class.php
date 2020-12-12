@@ -18,15 +18,7 @@
 
 			$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 
-			if($effectue) {
-				?>
-				<img src="image/valid.png" alt="OK"> L'étudiant a été ajoutée <!--Tout s'est bien passé-->
-			 	<?php
-		 	} else {
-			 	?>
-				<img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de l'étudiant <br /> <!--Il y a eu une erreur -->
-				<?php
-		}
+			return $effectue;
 		$req->closeCursor();
 		}
 
@@ -48,9 +40,20 @@
 					return $div;
 				}
 
-	public function delEtu($id) {
-		$sql = "DELETE FROM etudiant WHERE per_num=$id";
+		public function delEtu($id) {
+			$sql = "DELETE FROM etudiant WHERE per_num=$id";
+			$req = $this->db->prepare($sql);
+			$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
+			return $effectue;
+		}
+
+
+	public function updateInfos($dep_num, $div_num, $id) {
+		$sql = "UPDATE etudiant SET dep_num = :dep_num, div_num = :div_num WHERE per_num = :id";
 		$req = $this->db->prepare($sql);
+		$req->bindValue('dep_num', $dep_num);
+		$req->bindValue('dep_num', $div_num);
+		$req->bindValue('id', $id);
 		$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
 		return $effectue;
 	}

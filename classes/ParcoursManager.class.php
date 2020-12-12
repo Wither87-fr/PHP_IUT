@@ -1,7 +1,4 @@
 <?php
-	/**
-	 *
-	 */
 	class ParcoursManager
 	{
 
@@ -22,16 +19,7 @@
 			$req->bindValue(':num2', $idV2, PDO::PARAM_INT);
 
 			$effectue = $req->execute(); //execution de la requete et stockage du fait que la requete a été effectuée correctement ou non
-			if($effectue) {
-				?>
-				 <img src="image/valid.png" alt="OK"> Le parcours a été ajoutée <!--Tout s'est bien passé-->
-			 <?php
-		 } else {
-			 ?>
-				 <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du parcours. <br /> <!--Il y a eu une erreur -->
-				 <?php
-
-			}
+			return $effectue;
 		 $req->closeCursor();
 		}
 
@@ -69,10 +57,7 @@
 		}
 
 		public function getParNumByVille1AndVille2($ville1, $ville2) {
-			$sql = "SELECT par_num FROM parcours WHERE (vil_num1 = :ville1 AND vil_num2 = :ville2) OR (vil_num1 = :ville2 AND vil_num2 = :ville1)";
-			$req = $this->db->prepare($sql);
-			$req->bindValue('ville1', $ville1);
-			$req->bindValue('ville2', $ville2);
+			$sql = "SELECT par_num FROM parcours WHERE (vil_num1 = $ville1 AND vil_num2 = $ville2) OR (vil_num1 = $ville2 AND vil_num2 = $ville1)";
 			$req = $this->db->query($sql);
 			$res = $req->fetch(PDO::FETCH_ASSOC); //On n'a pas d'objets correspondant, et n'ayant qu'une ligne pour une colonne, une assoc suffit.
 			$par_num = $res['par_num'];

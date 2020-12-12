@@ -14,6 +14,15 @@
     <?php
   } else {
     $villeManager = new VilleManager($db);
-    $villeManager->addVille($nomVille);
+    $ok = $villeManager->addVille($nomVille);
+    if($ok) {
+      ?>
+        <img src="image/valid.png" alt="OK"> La ville a été ajoutée <!--Tout s'est bien passé-->
+      <?php
+    } else {
+      ?>
+        <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de la ville <br /> <!--Il y a eu une erreur -->
+      <?php
+    }
   }
 ?>

@@ -126,8 +126,7 @@
         }
         } else {
           $em = new EtudiantManager($db);
-          /*$ok =*/$em->addEtudiant($num_pers, $dep, $annee);
-          /*
+          $ok = $em->addEtudiant($num_pers, $dep, $annee);
           if($ok) {
           ?>
               <img src="image/valid.png" alt="OK"> L'étudiant a été ajoutée <!--Tout s'est bien passé-->
@@ -137,7 +136,6 @@
             <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout de l'étudiant <br /> <!--Il y a eu une erreur -->
           <?php
           }
-          */
         }
           break;
         case 'personnel':
@@ -184,8 +182,7 @@
             }
           } else {
             $sm = new SalarieManager($db);
-            /*$ok =*/$sm->addSalarie($num_pers, $tel_prof, $fonction);
-            /*
+            $ok = $sm->addSalarie($num_pers, $tel_prof, $fonction);
             if($ok) {
             ?>
                 <img src="image/valid.png" alt="OK"> Le salarié a été ajoutée <!--Tout s'est bien passé-->
@@ -195,7 +192,6 @@
               <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du salarié <br /> <!--Il y a eu une erreur -->
             <?php
             }
-            */
           }
           break;
         default:

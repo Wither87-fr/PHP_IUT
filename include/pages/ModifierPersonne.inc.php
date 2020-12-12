@@ -2,9 +2,44 @@
   if(isset($_POST['idPers'])) {
     $id = $_POST['idPers'];
   }
-
   if(isset($_POST['choix'])) {
     $choix = $_POST['choix'];
+  }
+  if(isset($_POST['nom'])) {
+    $nom = $_POST['nom'];
+  }
+  if(isset($_POST['prenom'])) {
+    $prenom = $_POST['prenom'];
+  }
+  if(isset($_POST['tel'])) {
+    $tel = $_POST['tel'];
+  }
+  if(isset($_POST['mail'])) {
+    $mail = $_POST['mail'];
+  }
+  if(isset($_POST['login'])) {
+    $login = $_POST['login'];
+  }
+  if(isset($_POST['pwd'])) {
+    $pwd = $_POST['pwd'];
+  }
+  if(isset($_POST['dep'])) {
+    $dep = $_POST['dep'];
+  }
+  if(isset($_POST['annee'])) {
+    $annee = $_POST['annee'];
+  }
+  if(isset($_POST['tel_prof'])) {
+    $tel_prof = $_POST['tel_prof'];
+  }
+  if(isset($_POST['fonction'])) {
+    $fonction = $_POST['fonction'];
+  }
+  if(isset($_POST['validated'])) {
+    $validated = $_POST['validated'];
+  }
+  if(isset($_POST['changed'])) {
+    $changed = $_POST['changed'];
   }
 ?>
 
@@ -51,27 +86,28 @@
 <?php
   if(!isset($validated)) {
     $pm = new PersonneManager($db);
+    $em = new EtudiantManager($db);
+    $sm = new SalarieManager($db);
     $estEtu = $pm->isEtudiant($id);
     if(($estEtu === 'true' && $choix === 'personnel')|| ($estEtu === 'false' && $choix === 'etudiant')) {
       //Changement
       //1. Suppr Etudiant ou salarie
       if($estEtu === 'true') {
-        $em = new EtudiantManager($db);
         $em->delEtu($id);
       } else {
-        $sm = new SalarieManager($db);
         $sm->delSal($id);
       }
       //2. rentrer infos
       ?>
         <form class="customForm" action="#" method="post">
-          <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php $pm->getNomFromId(); ?>"> <br />
-          <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php $pm->getPrenomFromId(); ?>"> <br />
-          <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php $pm->getTelFromId(); ?>"> <br />
-          <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php $pm->getMailFromId(); ?>"> <br />
-          <label for="login">Login :</label> <input type="text" name="login" value="<?php $pm->getLoginFromId(); ?>"> <br />
+          <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" required> <br />
+          <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" required> <br />
+          <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" required> <br />
+          <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" required> <br />
+          <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" required> <br />
+          <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd"> <br/>
           <?php
-            if($estEtu === 'true') {
+            if($choix === 'etudiant') {
               $divm = new DivisionManager($db);
               $listeDiv = $divm->listerDivisions();
               $depm = new DepartementManager($db);
@@ -82,11 +118,7 @@
                     <?php
                       foreach ($listeDiv as $value) {
                         ?>
-                          <option value="<?php echo $value->getNum(); ?>" <?php
-                            if($em->getDivNumFromId($id) === $value->getNum()) {
-                              echo selected;
-                            }
-                           ?>><?php echo $value->getNom(); ?></option>
+                          <option value="<?php echo $value->getNum(); ?>"><?php echo $value->getNom(); ?></option>
                         <?php
                       }
                     ?>
@@ -96,46 +128,37 @@
                     <?php
                       foreach ($listeDep as $value) {
                         ?>
-                          <option value="<?php echo $value->getNum(); ?>" <?php
-                            if($em->getDepNumFromId($id) === $value->getNum()) {
-                              echo "selected";
-                            }
-                           ?>><?php echo $value->getNom(); ?></option>
+                          <option value="<?php echo $value->getNum(); ?>"><?php echo $value->getNom(); ?></option>
                         <?php
                       }
                     ?>
                 </select>
                 <?php
             } else {
-              $fonm = new FonctionManager($db);
-              $listeFon = $fonm->listerFonctions();
-              ?>
-                <label for="tel_prof">Téléphone professionnel : </label>
-                <input type="tel" name="tel_prof" value="<?php echo $sm->getTelProfFromId($id); ?>" id="tel_prof">
+              if($choix==="personnel") {
+                $fonm = new FonctionManager($db);
+                $listeFon = $fonm->listerFonctions();
+                ?>
+                  <label for="tel_prof">Téléphone professionnel : </label>
+                  <input type="tel" name="tel_prof" value="<?php echo $sm->getTelProfFromId($id); ?>" id="tel_prof" required>
 
-                <label for="fonction">Fonction : </label>
-                <select name="fonction" id="fonction">
-                    <?php
-                      foreach ($listeFon as $value) {
-                        ?>
-                          <option value="<?php echo $value->getNum(); ?>"
-                            <?php
-                              if($sm->getFonNumFromId($id) === $value->getNum()) {
-                                echo "selected";
-                              }
-                            ?>
-                            ><?php echo $value->getNom(); ?></option>
-                        <?php
-                      }
-                    ?>
-                </select>
-              <?php
+                  <label for="fonction">Fonction : </label>
+                  <select name="fonction" id="fonction">
+                      <?php
+                        foreach ($listeFon as $value) {
+                          ?>
+                            <option value="<?php echo $value->getNum(); ?>"><?php echo $value->getNom(); ?></option>
+                          <?php
+                        }
+                      ?>
+                  </select>
+                <?php
+              }
             }
           ?>
           <input type="submit" value="Modifier">
           <input type="hidden" name="idPers" value="<?php echo $id; ?>">
           <input type="hidden" name="choix" value="<?php echo $choix; ?>">
-          <input type="hidden" name="isEtu" value="<?php echo $estEtu; ?>">
           <input type="hidden" name="changed" value="true">
           <input type="hidden" name="validated" value="ok">
         </form>
@@ -143,11 +166,12 @@
     } else {
       ?>
       <form class="customForm" action="#" method="post">
-        <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php $pm->getNomFromId(); ?>"> <br />
-        <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php $pm->getPrenomFromId(); ?>"> <br />
-        <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php $pm->getTelFromId(); ?>"> <br />
-        <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php $pm->getMailFromId(); ?>"> <br />
-        <label for="login">Login :</label> <input type="text" name="login" value="<?php $pm->getLoginFromId(); ?>"> <br />
+        <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" required> <br />
+        <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" required> <br />
+        <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" required> <br />
+        <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" required> <br />
+        <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" required> <br />
+        <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd"> <br/>
         <?php
           if($estEtu === 'true') {
             $divm = new DivisionManager($db);
@@ -162,7 +186,7 @@
                       ?>
                         <option value="<?php echo $value->getNum(); ?>" <?php
                           if($em->getDivNumFromId($id) === $value->getNum()) {
-                            echo selected;
+                            echo 'selected';
                           }
                          ?>><?php echo $value->getNom(); ?></option>
                       <?php
@@ -176,7 +200,7 @@
                       ?>
                         <option value="<?php echo $value->getNum(); ?>" <?php
                           if($em->getDepNumFromId($id) === $value->getNum()) {
-                            echo "selected";
+                            echo 'selected';
                           }
                          ?>><?php echo $value->getNom(); ?></option>
                       <?php
@@ -199,7 +223,7 @@
                         <option value="<?php echo $value->getNum(); ?>"
                           <?php
                             if($sm->getFonNumFromId($id) === $value->getNum()) {
-                              echo "selected";
+                              echo 'selected';
                             }
                           ?>
                           ><?php echo $value->getNom(); ?></option>
@@ -213,21 +237,43 @@
         <input type="submit" value="Modifier">
         <input type="hidden" name="idPers" value="<?php echo $id; ?>">
         <input type="hidden" name="choix" value="<?php echo $choix; ?>">
-        <input type="hidden" name="isEtu" value="<?php echo $estEtu; ?>">
         <input type="hidden" name="changed" value="false">
         <input type="hidden" name="validated" value="ok">
       </form>
     <?php
     }
   } else {
-    /*<!-- 4 : Valider -->
-    <!--
-      Si a changé, alors
-      enregistrer nouveau (etudiant/salarie),
-      update infos.
-      Sinon
-      update infos.
-    --> */
+    $pm = new PersonneManager($db);
+    $fait = $pm->updateAll($nom, $prenom, $tel, $mail, $login, $id);
+    if(!verifyPassword($pwd, $pm->getPasswordFromId($id)) || str_replace(" ","",$pwd) !== "") {
+      $pm->updatePwd($id, encrypt($pwd));
+    }
+    if($choix === 'etudiant') {
+      $em = new EtudiantManager($db);
+      if($changed==='true') {
+        $fait = $em->addEtudiant($id, $dep, $annee);
+      } else {
+        $fait = $em->updateInfos($dep, $annee, $id);
+      }
+
+    } else {
+      $sm = new SalarieManager($db);
+      if($changed==='true') {
+        $fait = $sm->addSalarie($id, $tel_prof, $fonction);
+      } else {
+        $fait = $sm->updateInfos($tel_prof,$fonction, $id);
+      }
+    }
+
+    if($fait) {
+      ?>
+          <img src="image/valid.png" alt="OK"> La personne a été modifiée ! <br /> <!--Tout s'est bien passé-->
+      <?php
+      } else {
+      ?>
+        <img src="image/erreur.png" alt="NOP"> Erreur lors de la modification <br /> <!--Il y a eu une erreur -->
+      <?php
+      }
   }
 }
 }

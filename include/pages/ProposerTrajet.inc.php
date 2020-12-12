@@ -1,18 +1,20 @@
 <?php
   if(isset($_POST['villeDep'])) {
     $villeDep = $_POST['villeDep'];
-    $_SESSION["villeDepart"] = $villeDep;
   }
   if(isset($_POST['villeArrivee'])) {
     $villeArrivee = $_POST['villeArrivee'];
   }
-
-
-  if(isset($_SESSION["villeDepart"])) {
-    $villeDep = $_SESSION["villeDepart"];
+  if(isset($_POST['date'])) {
+    $date = $_POST['date'];
+  }
+  if(isset($_POST['heure'])) {
+    $heure = $_POST['heure'];
+  }
+  if(isset($_POST['places'])) {
+    $places = $_POST['places'];
   }
 ?>
-
 
 <h1>Proposer un trajet</h1>
 
@@ -57,17 +59,26 @@
       <label for="heure">Heure de départ : </label> <input type="text" name="heure" id=heure value="<?php echo date("H:i:s") ?>"> <br />
       <label for="places">Nombre de places :</label> <input type="number" name="places" id="places" placeholder="3"> <br />
       <input type="submit" value="Valider">
+      <input type="hidden" name="villeDep" value="<?php echo $villeDep; ?>">
       </form>
     <?php
   } else {
-    ?>
-    c'est OK! je peut pas aller plus loin sans le reste
-    <?php
-    $nom = $_SESSION['username'];
-    session_destroy();
-    session_start();
-    $_SESSION['connecte'] = "true";
-    $_SESSION['username'] = $nom;
+    $pm = new ProposeManager($db);
+    $perm = new PersonneManager($db);
+    $parm = new ParcoursManager($db);
+    $par_num = $parm->getParNumByVille1AndVille2($villeDep, $villeArrivee);
+    $sens = $pm->getSens($par_num, $villeDep);
+    $ok = $pm->propose($par_num, $perm->getPersonneFromLogin($_SESSION['username'])->getNum(), $date, $heure, $places, $sens);
+
+    if($ok) {
+      ?>
+        <img src="image/valid.png" alt="OK"> Le trajet a été ajouté <!--Tout s'est bien passé-->
+      <?php
+    } else {
+      ?>
+        <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du trajet <br /> <!--Il y a eu une erreur -->
+      <?php
+    }
   }
-}
+  }
 ?>
