@@ -1,5 +1,5 @@
 <?php
-include_once 'ejectNotConnected.inc.php'; // Il s'agit d'une page à accès restreint.
+include_once 'include/ejectNotConnected.inc.php'; // Il s'agit d'une page à accès restreint.
 
 /**
 * les cinq vérifications suivantes permettent d'avoir des raccourci pour les variables envoyées par formulaire.
@@ -109,16 +109,14 @@ if(!isset($vil_dep)) { //Premier appel
                     <td><?php echo $parcours->getHeure(); ?></td>
                     <td><?php echo $parcours->getPlaces(); ?></td>
                     <td>
-                      <acronym title="Moyenne des avis :
-                        <?php
+                      <abbr title="Moyenne des avis :<?php
                           echo number_format($perm->getAvgNote($parcours->getConducteur()), 2); //number_format(nombre, nb_chiffre_apres_virgule) permet de rendre la moyenne plus lisible.
-                        ?>, Dernier avis :
-                        <?php
+                        ?>, Dernier avis :<?php
                           echo $perm->getCommentaire($parcours->getConducteur()); // Le dernier commentaire du conducteur
                         ?>">
                         <?php
                           echo $perm->getPrenomFromId($parcours->getConducteur())." ".$perm->getNomFromId($parcours->getConducteur()); // Le conducteur
-                        ?></acronym>
+                        ?></abbr>
                     </td>
                   </tr>
                 <?php

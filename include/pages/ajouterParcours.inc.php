@@ -59,6 +59,5 @@
         <img src="image/erreur.png" alt="NOP"> Erreur lors de l'ajout du parcours <br /> <!--Il y a eu une erreur -->
       <?php
     }
-    }
-  }
+}
 ?>

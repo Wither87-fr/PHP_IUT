@@ -1,5 +1,5 @@
 <?php
-include_once 'ejectNotConnected.inc.php'; // C'est une page a accés restreint
+include_once 'include/ejectNotConnected.inc.php'; // C'est une page a accés restreint
 
 /**
 * les cinq vérifications suivantes permettent d'avoir des raccourci pour les variables envoyées par formulaire.
@@ -50,7 +50,7 @@ include_once 'ejectNotConnected.inc.php'; // C'est une page a accés restreint
         <form class="customForm" action="#" method="post">
         <label>  Ville de départ : <?php echo $vm->getVilleFromId($villeDep); ?> </label>
         <label for="arrivee">Ville d'arrivée:</label>
-        <select id="arrivée" name="villeArrivee">
+        <select id="arrivee" name="villeArrivee">
           <?php
             $villes = $pam->getVillesArrivee($villeDep);
             foreach ($villes as $ville) {

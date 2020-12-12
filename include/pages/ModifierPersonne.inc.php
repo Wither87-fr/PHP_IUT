@@ -95,12 +95,12 @@
         }
         ?>
           <form class="customForm" action="#" method="post">
-            <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" required> <br />
-            <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" required> <br />
-            <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" required> <br />
-            <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" required> <br />
-            <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" required> <br />
-            <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd"> <br/>
+            <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" id ="nom" required> <br />
+            <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" id="prenom" required> <br />
+            <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" id="tel" required> <br />
+            <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" id="mail" required> <br />
+            <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" id="login" required> <br />
+            <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd" id="pwd"> <br/>
             <?php
               if($choix === 'etudiant') { // La personne devient un(e) étudiant(e)
                 $divm = new DivisionManager($db);
@@ -159,12 +159,12 @@
       } else { // Le rôle (salarié/étudiant) n'a pas changé
         ?>
         <form class="customForm" action="#" method="post">
-          <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" required> <br />
-          <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" required> <br />
-          <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" required> <br />
-          <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" required> <br />
-          <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" required> <br />
-          <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd"> <br/>
+          <label for="nom">Nom :</label> <input type="text" name="nom" value="<?php echo $pm->getNomFromId($id); ?>" id ="nom" required> <br />
+          <label for="prenom">Prénom :</label> <input type="text" name="prenom" value="<?php echo $pm->getPrenomFromId($id); ?>" id="prenom" required> <br />
+          <label for="tel">Téléphone :</label> <input type="text" name="tel" value="<?php echo $pm->getTelFromId($id); ?>" id="tel" required> <br />
+          <label for="mail">Mail :</label> <input type="email" name="mail" value="<?php echo $pm->getMailFromId($id); ?>" id="mail" required> <br />
+          <label for="login">Login :</label> <input type="text" name="login" value="<?php echo $pm->getLoginFromId($id); ?>" id="login" required> <br />
+          <label for="pwd">Mot de Passe :</label> <input type="password" name="pwd" id="pwd"> <br/>
           <?php
             if($estEtu === 'true') { // la personne est un(e) étudiant(e)
               $divm = new DivisionManager($db);

@@ -57,9 +57,9 @@
 			<label for="Mail">Mail : </label> <input type="email" name="per_mail" id="Mail">
 			<br />
 			<label for="Login">Login : </label> <input type="text" name="per_login" id="Login">
-			<label for="Mot de Passe">Mot de Passe : </label> <input type="password" name="per_pwd" id="Mot de Passe">
+			<label for="per_pwd">Mot de Passe : </label> <input type="password" name="per_pwd" id="per_pwd">
 			<br />
-			<label for="Catégorie">Catégorie : </label>
+			<label>Catégorie : </label>
 			<input type="radio" id="etudiant" name="choix" value="etudiant" checked="checked"> <label for="etudiant">Etudiant</label>
 			<input type="radio" id="personnel" name="choix" value="personnel"> <label for="personnel">Personnel</label>
 			<br />
