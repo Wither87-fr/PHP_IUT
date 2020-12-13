@@ -51,5 +51,5 @@ Depos du PHP a rendre en cours
 - [x] Pas d'HTML dans les classes
 - [x] Valider au W3C
 - [x] Commenter les fichiers
-- [ ] Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
-- [ ] Donner les accés en lecture à M. Chastagner
+- [x] Deposer le travail dans 164.81.120.4:port\projetXXXX\VotreRepertoire
+- [x] Donner les accés en lecture à M. Chastagner
