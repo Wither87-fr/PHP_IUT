@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
   $accueil = $_SERVER["PHP_SELF"]; // c'est l'adresse de l'accueil
-  require_once 'autoload.inc.php';
+  require_once 'autoLoad.inc.php';
   require_once 'db.inc.php';
   require_once 'functions.inc.php';
 ?>
